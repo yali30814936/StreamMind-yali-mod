@@ -59,3 +59,6 @@ public_models/
 
 models/
 screenlog.0
+
+/dataset
+/huggingface

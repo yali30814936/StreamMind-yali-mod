@@ -87,7 +87,7 @@ class LazySupervisedDataset(Dataset):
         if self.soccer_dataset:
             print("*****************getting_finetune_soccer_data******************")
             target_filenames = ["1_224p.mkv", "2_224p.mkv"]
-            self.soccer_video_list = find_video_files("data/MatchTime/features_video",target_filenames)
+            self.soccer_video_list = find_video_files("dataset/MatchTime/Video",target_filenames)
             self.caption_path_list = []
             self.remove_video_list_id = []
             for video_id, video_path in enumerate(self.soccer_video_list):

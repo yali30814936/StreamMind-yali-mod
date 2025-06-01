@@ -19,12 +19,9 @@ def extract_video_half(video_data_path):
     return None
 
 
-def trans_video_2_json(file_paths,data_type):
-    new_path = file_paths.replace("features_video", "dataset/MatchTime/" + data_type)
-    if "1_224p.mkv" in new_path:
-        new_path = new_path.replace("1_224p.mkv", "Labels-caption.json")
-    elif "2_224p.mkv" in new_path:
-        new_path = new_path.replace("2_224p.mkv", "Labels-caption.json")
+def trans_video_2_json(file_path,data_type):
+    new_path_list = file_path.split("/")
+    new_path = "/".join([new_path_list[0], new_path_list[1], "SN-Caption", data_type, f"{new_path_list[3]}_{new_path_list[4]}", new_path_list[5], "Labels-caption.json"])
     return new_path
 
 

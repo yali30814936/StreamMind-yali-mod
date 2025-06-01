@@ -736,7 +736,7 @@ def train(attn_implementation=None):
                 **bnb_model_from_pretrained_args
             )
         elif 'llama2' in model_args.model_name_or_path.lower():
-            config = transformers.AutoConfig.from_pretrained(model_args.model_name_or_path, trust_remote_code=True)
+            config = transformers.AutoConfig.from_pretrained(model_args.model_name_or_path, trust_remote_code=True, )
             config._attn_implementation = attn_implementation
             model = Videollama2MistralForCausalLM.from_pretrained(
                 pretrain_model_name_or_path,

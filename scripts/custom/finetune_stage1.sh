@@ -10,11 +10,11 @@ RANK=0
 # Training Arguments
 GLOBAL_BATCH_SIZE=2 #128
 GRADIENT_ACCUMULATION_STEPS=2
-LOCAL_BATCH_SIZE=$[$GLOBAL_BATCH_SIZE/($WORLD_SIZE*$NPROC_PER_NODE*$GRADIENT_ACCUMULATION_STEPS)]
+LOCAL_BATCH_SIZE=1
 echo $LOCAL_BATCH_SIZE
 
 # Log Arguments
-export TRANSFORMERS_OFFLINE=1
+export TRANSFORMERS_OFFLINE=0
 export WANDB_PROJECT=videollama2_mamba
 RUN_NAME=finetune_streammind
 DATA_DIR=datasets
@@ -27,13 +27,13 @@ torchrun --nnodes $WORLD_SIZE \
     --master_port=$MASTER_PORT \
     --node_rank $RANK \
     streammind/train_flash_attn_score.py \
-    --score_dataset True \
-    --score_dataset_train_llm True \
+    --soccer_dataset True \
+    --soccer_dataset_train_llm True \
     --output_dir ${OUTP_DIR}/${RUN_NAME}/finetune_${RUN_NAME} \
     --deepspeed scripts/zero2.json \
     --version v1_mistral \
-    --model_name_or_path VideoLLaMA2-7B \
-    --vision_tower clip-vit-large-patch14-336 \
+    --model_name_or_path DAMO-NLP-SG/VideoLLaMA2-7B \
+    --vision_tower openai/clip-vit-large-patch14-336 \
     --freeze_backbone False \
     --mm_projector_type mamba \
     --data_path   ${DATA_DIR}/videollava_sft/videochatgpt_tune_.json \
@@ -42,7 +42,7 @@ torchrun --nnodes $WORLD_SIZE \
     --mm_use_im_start_end False \
     --mm_use_im_patch_token False \
     --image_aspect_ratio pad \
-    --num_frames 32 \
+    --num_frames 16 \
     --bf16 True \
     --tf32 True \
     --fp16 False \
