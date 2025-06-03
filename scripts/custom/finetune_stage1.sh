@@ -10,7 +10,7 @@ RANK=0
 # Training Arguments
 GLOBAL_BATCH_SIZE=2 #128
 GRADIENT_ACCUMULATION_STEPS=2
-LOCAL_BATCH_SIZE=1
+LOCAL_BATCH_SIZE=$[$GLOBAL_BATCH_SIZE/($WORLD_SIZE*$NPROC_PER_NODE*$GRADIENT_ACCUMULATION_STEPS)]
 echo $LOCAL_BATCH_SIZE
 
 # Log Arguments
@@ -30,7 +30,7 @@ torchrun --nnodes $WORLD_SIZE \
     --soccer_dataset True \
     --soccer_dataset_train_llm True \
     --output_dir ${OUTP_DIR}/${RUN_NAME}/finetune_${RUN_NAME} \
-    --deepspeed scripts/zero2.json \
+    --deepspeed scripts/zero3.json \
     --version v1_mistral \
     --model_name_or_path DAMO-NLP-SG/VideoLLaMA2-7B \
     --vision_tower openai/clip-vit-large-patch14-336 \

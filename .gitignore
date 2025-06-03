@@ -62,3 +62,4 @@ screenlog.0
 
 /dataset
 /huggingface
+!zero*.json
