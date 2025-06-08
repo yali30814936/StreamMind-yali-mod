@@ -738,6 +738,7 @@ def train(attn_implementation=None):
         elif 'llama2' in model_args.model_name_or_path.lower():
             config = transformers.AutoConfig.from_pretrained(model_args.model_name_or_path, trust_remote_code=True, )
             config._attn_implementation = attn_implementation
+            config.mm_projector_type = model_args.mm_projector_type
             model = Videollama2MistralForCausalLM.from_pretrained(
                 pretrain_model_name_or_path,
                 config=config,
